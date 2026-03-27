@@ -7,6 +7,15 @@
 #include<vector>
 
 using namespace std;
+/*
+class fourMomentum
+{
+    double energy = 0.0;
+    double xMomentum = 0.0;
+    double yMomentum = 0.0;
+    double zMomentum = 0.0;
+};
+*/
 
 class particle
 {
@@ -14,20 +23,15 @@ private:
     std::string type {"Ghost"};
     double mass {0.0};
     std::vector<double> fourMomentum {0.0, 0.0, 0.0, 0.0};
-    //double energy {0.0};
 public:
     // Default constructor
     particle() = default ;
-    // Parameterized constructor
-    /*particle(std::string particle_type, double particle_mass, double particle_momentum):
-      type{particle_type}, mass{particle_mass}, momentum{particle_momentum},
-      energy{sqrt(mass*mass+momentum*momentum)}
-    {};*/
 
     double ThreeMagnitude(vector<double> threeVector) {
         return pow( pow(threeVector[1],2) + pow(threeVector[2],2) + pow(threeVector[3],2) , 0.5);
     }
 
+    // Parameterized constructor
     particle(string particleType, double xMomentum, double yMomentum, double zMomentum) {
         type = particleType;
         fourMomentum[1] = xMomentum;
@@ -44,18 +48,37 @@ public:
     double gamma() {return fourMomentum[0]/mass;} // One-line functions are OK in-line
     void print_data();
 
-    vector<double> getFourMomentum() {
-        return fourMomentum;
+    double getFourEnergy() {
+        return fourMomentum[0];
     }
+    double getFourMomentumX() {
+        return fourMomentum[1];
+    }
+    double getFourMomentumY() {
+        return fourMomentum[2];
+    }
+    double getFourMomentumZ() {
+        return fourMomentum[3];
+    }
+
 };
 #endif
 
 vector<double> DotProduct(particle p1, particle p2) {
-    double xMomentum = p1.getFourMomentum()[1]*p2.getFourMomentum()[1];
-    double yMomentum = p1.getFourMomentum()[2]*p2.getFourMomentum()[2];
-    double zMomentum = p1.getFourMomentum()[3]*p2.getFourMomentum()[3];
+    double xMomentum = p1.getFourMomentumX()*p2.getFourMomentumX();
+    double yMomentum = p1.getFourMomentumY()*p2.getFourMomentumY();
+    double zMomentum = p1.getFourMomentumZ()*p2.getFourMomentumZ();
     vector<double> dotMomentum = {xMomentum,yMomentum,zMomentum};
     return dotMomentum;
+}
+
+vector<double> VectorSum(particle p1, particle p2) {
+    double energy = p1.getFourEnergy() + p2.getFourEnergy();
+    double xMomentum = p1.getFourMomentumX()+p2.getFourMomentumX();
+    double yMomentum = p1.getFourMomentumY()+p2.getFourMomentumY();
+    double zMomentum = p1.getFourMomentumZ()+p2.getFourMomentumZ();
+    vector<double> MomentumSum = {energy,xMomentum,yMomentum,zMomentum};
+    return MomentumSum;
 }
 
 double ThreeMagnitude(vector<double> threeVector) {
@@ -65,6 +88,6 @@ double ThreeMagnitude(vector<double> threeVector) {
 int main() {
     particle particle1("tau", 100, 0, 0);
     particle particle2("muon", 100, 0, 0);
-    cout << particle1.getFourMomentum()[0] << endl;
-    cout << DotProduct(particle1, particle2)[1] << endl;
+    cout << particle1.getFourMomentumX() << endl;
+    cout << DotProduct(particle1, particle2)[0] << endl;
 }
