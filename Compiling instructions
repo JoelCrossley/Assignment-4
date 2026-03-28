@@ -1,0 +1,5 @@
+Compliation guide:
+
+Save the attached input files in the same folder as the code, then run using the following command
+
+g++ assignment3.cpp -o assignment3.exe -std=gnu++17
