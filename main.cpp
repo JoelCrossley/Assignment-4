@@ -48,7 +48,7 @@ public:
         return fourMomentum[3];
     }
 
-    ~particle(){} //{std::cout<<"Destroying "<<type<<std::endl;}  // Destructor (in-line)
+    ~particle(){}  // Destructor (in-line)
     double gamma() {return fourMomentum[0]/mass;} // One-line functions are OK in-line
     void print_data();
 
@@ -81,7 +81,6 @@ int NumValidation(int type) //Function used to validate integer inputs
 {
     while (!(cin>>type)|| type<1|| type > 3) {
         cout << "Invalid input, must be a 1, 2 or 3 " << endl;
-        //if (type>nInitial){cout << "that is less than the initial energy level" ;}
         cin.clear();
         cin.ignore();
     }
@@ -92,7 +91,6 @@ int MomentumValidation(int momentum) //Function used to validate momentum inputs
 {
     while (!(cin>>momentum)) {
         cout << "Invalid input, must be a double " << endl;
-        //if (type>nInitial){cout << "that is less than the initial energy level" ;}
         cin.clear();
         cin.ignore();
     }
@@ -100,8 +98,6 @@ int MomentumValidation(int momentum) //Function used to validate momentum inputs
 }
 
 int main() {
-    //particle particle1;
-    //particle particle2;
     int typeNum;
     string particleType;
     double xMomentum, yMomentum, zMomentum;
